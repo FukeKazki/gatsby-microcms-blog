@@ -4,12 +4,13 @@ import {useEffect, useState} from "react";
 
 const BlogPreviewPage = ({location}: PageProps): JSX.Element => {
   const {contentId, draftKey} = queryString.parse(location.search.slice(1))
+
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    fetch(`https://fukkeblog.microcms.io/api/v1/news/${contentId}?draftKey=${draftKey}`, {
+    fetch(`https://fukkeblog.microcms.io/api/v1/techblog/${contentId}?draftKey=${draftKey}`, {
       headers: {
-        'X-API-KEY': process.env.GATSBY_MICROCMS_API_KEY,
+        'X-API-KEY': `${process.env.GATSBY_MICROCMS_API_KEY}`,
       },
     }).then(res => res.json())
       .then(data => setData(data))
