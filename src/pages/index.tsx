@@ -1,14 +1,14 @@
 import * as React from 'react'
-import {graphql, Link} from "gatsby";
+import {graphql, Link, PageProps} from "gatsby";
 
-const IndexPage = (props) => {
-  const { data } = props
+const IndexPage = ({ data }: PageProps<any>): JSX.Element => {
+  const { allMicrocmsTechblog } = data
   return (
     <main>
       <title>Home Page</title>
       <h1>hello world</h1>
       <ul>
-        {data.allMicrocmsTechblog.edges.map(({node}, index) => (
+        {allMicrocmsTechblog.edges.map(({node}, index) => (
           <li key={`${node.title}-${index}`}>
             <article>
               <h2>{node.title}</h2>
