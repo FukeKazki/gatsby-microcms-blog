@@ -1,12 +1,19 @@
+import * as React from 'react';
 import {PageProps} from "gatsby";
 import * as queryString from "querystring"
 import {useEffect, useState} from "react";
 
+type TechBlogPreview = {
+  title: string
+  body: string
+}
+
 const BlogPreviewPage = ({location}: PageProps): JSX.Element => {
   const {contentId, draftKey} = queryString.parse(location.search.slice(1))
 
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<TechBlogPreview | null>(null)
 
+  // PreviewはCSRで実現
   useEffect(() => {
     fetch(`https://fukkeblog.microcms.io/api/v1/techblog/${contentId}?draftKey=${draftKey}`, {
       headers: {
@@ -16,17 +23,15 @@ const BlogPreviewPage = ({location}: PageProps): JSX.Element => {
       .then(data => setData(data))
   }, [])
 
-
   return (
-    <div>
-      <h1>preview</h1>
+    <>
       {data && (
         <div>
-          {data.title}
-          {data.body}
+          <h1>{data?.title}</h1>
+          <div dangerouslySetInnerHTML={{__html: data?.body || ""}}/>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

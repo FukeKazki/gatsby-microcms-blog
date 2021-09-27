@@ -18,6 +18,9 @@ module.exports = {
           endpoint: "techblog"
         }]
       }
+    },
+    {
+      resolve: `gatsby-plugin-typegen`
     }
   ],
 };
